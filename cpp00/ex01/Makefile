@@ -1,9 +1,9 @@
 NAME = myawesomephonebook
 
-SRCS =	myawesomephonebook.cpp Phonebook.cpp
+SRCS =	myawesomephonebook.cpp Phonebook.class.cpp
 
 FLAGS = -std=c++98
-C++_FLAGS = c++ -Wall -Werror -Wextra ${FLAGS}
+C++_FLAGS = g++ -Wall -Werror -Wextra ${FLAGS}
 
 all:	${NAME}
 
