@@ -18,6 +18,7 @@ void	ask_for_command(Phonebook book)
 	else if (command == "SEARCH")
 	{
 		book.search();
+		book.search_index();
 		ask_for_command(book);
 	}
 	else if (command == "EXIT")

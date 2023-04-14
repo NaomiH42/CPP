@@ -1,6 +1,7 @@
 #include "Phonebook.class.hpp"
 #include <iomanip>
 #include <cstring>
+#include <stdlib.h>
 
 Phonebook::Phonebook(void)
 {
@@ -16,7 +17,22 @@ Phonebook::Phonebook(void)
 	return ;
 }
 
-void	Phonebook::search(void)
+void	Phonebook::search_index(void)
+{
+	int 		input = 200;
+	std::string	input_str;
+	char *cstr;
+
+	while (input < 0 || input >= 8)
+	{
+		std::cout << "Enter index of your search: " << std::endl;
+		std::cin >> input_str;
+		cstr = &input_str[0];
+		input = atoi(cstr);
+	}
+}
+
+void	Phonebook::search(void) const
 {
 	int	i;
 	int	l;
@@ -42,7 +58,6 @@ void	Phonebook::search(void)
 					std::cout << std::right << std::setw(10) << (contacts[l].nickname).substr(0, 9) + '.' << std::endl;
 				else
 					std::cout << std::right << std::setw(10) << contacts[l].nickname << std::endl;
-				std::cout << std::right << std::setw(10) << contacts[l].index << std::endl;
 			}
 			l++;
 		}
@@ -57,10 +72,11 @@ void	Phonebook::add_new(void)
 	i = 0;
 	while (contacts[i].first_name != "" && i < 8)
 	{
-		contacts[i].index++;
+		if (contacts[7].index == 200)
+			contacts[i].index++;
 		i++;
 	}
-	contacts[i].index = i - 1;
+	contacts[i].index = 0;
 	if (i == 8)
 	{
 		i = 0;
@@ -72,8 +88,8 @@ void	Phonebook::add_new(void)
 		i = 0;
 		while (contacts[i].index != 8)
 			i++;
-		contacts[i].index = 0;
 	}
+	contacts[i].index = 0;
 	std::cout << "First name: " << std::endl;
 	std::cin >> contacts[i].first_name;
 	std::cout << "Last Name: " << std::endl;

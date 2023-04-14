@@ -7,6 +7,7 @@ public:
 	Phonebook(void);
 	void 	add_new();
 	void	ask_for_command();
-	void	search(void);
+	void	search(void) const;
+	void	search_index(void);
 
 };
