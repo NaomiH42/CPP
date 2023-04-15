@@ -8,6 +8,6 @@ public:
 	void 	add_new();
 	void	ask_for_command();
 	void	search(void) const;
-	void	search_index(void);
+	void	search_index(void) const;
 
 };

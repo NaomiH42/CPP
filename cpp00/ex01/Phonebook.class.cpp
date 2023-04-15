@@ -17,19 +17,38 @@ Phonebook::Phonebook(void)
 	return ;
 }
 
-void	Phonebook::search_index(void)
+void	Phonebook::search_index(void) const
 {
 	int 		input = 200;
 	std::string	input_str;
-	char *cstr;
+	char 		*cstr;
+	int			upper_lim;
+	int			i = 0;
 
-	while (input < 0 || input >= 8)
+	while (i < 8 && contacts[i].index != 200)
+		i++;
+	upper_lim = i;
+	if (upper_lim == 0)
+	{
+		std::cout << "No entries in the phonebook!" << std::endl;
+		return ;
+	}
+	while (input < 1 || input > upper_lim)
 	{
 		std::cout << "Enter index of your search: " << std::endl;
 		std::cin >> input_str;
 		cstr = &input_str[0];
 		input = atoi(cstr);
 	}
+	i = 0;
+
+	while(contacts[i].index != input - 1)
+		i++;
+	std::cout << "First name: " << contacts[i].first_name << std::endl;
+	std::cout << "Last name: " << contacts[i].last_name << std::endl;
+	std::cout << "Nickname: " << contacts[i].nickname << std::endl;
+	std::cout << "Phone Number: " << contacts[i].phone_number << std::endl;
+	std::cout << "Darkest Secret: " << contacts[i].darkest_secret << std::endl;
 }
 
 void	Phonebook::search(void) const
@@ -45,7 +64,7 @@ void	Phonebook::search(void) const
 		{
 			if (contacts[l].index == i)
 			{
-				std::cout << std::right << std::setw(10) << i << '|';
+				std::cout << std::right << std::setw(10) << i + 1 << '|';
 				if ((contacts[l].first_name).length() > 10)
 					std::cout << std::right << std::setw(10) << (contacts[l].first_name).substr(0, 9) + '.' << "|";
 				else
