@@ -1,6 +1,6 @@
-NAME = brainnzzzzz
+NAME = moar_brainz
 
-SRCS =	main.cpp newZombie.cpp Zombie.cpp randomChump.cpp
+SRCS =	main.cpp Zombie.cpp zombieHorde.cpp
 
 FLAGS = -std=c++98
 C++_FLAGS = g++ -Wall -Werror -Wextra ${FLAGS}
