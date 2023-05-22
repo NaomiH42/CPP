@@ -6,28 +6,11 @@
 /*   By: ehasalu <ehasalu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 22:23:07 by ehasalu           #+#    #+#             */
-/*   Updated: 2023/05/22 15:47:59 by ehasalu          ###   ########.fr       */
+/*   Updated: 2023/05/22 15:58:14 by ehasalu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-
-// const int _fractBits = 8;
-
-Fixed::Fixed( void ) : _fixedPointValue(0)
-{
-	std::cout << "Default constructor called" << std::endl;
-}
-
-Fixed::Fixed( int const i ) : _fixedPointValue(i << _fractBits)
-{
-	std::cout << "Int constructor called" << std::endl;
-}
-
-Fixed::Fixed( float const f) : _fixedPointValue(roundf(f * (1 << _fractBits)))
-{
-	std::cout << "Float constructor called" << std::endl;
-}
 
 float Fixed::toFloat( void ) const
 {
@@ -37,26 +20,6 @@ float Fixed::toFloat( void ) const
 int	Fixed::toInt( void ) const
 {
 	return (_fixedPointValue >> _fractBits);
-}
-
-Fixed::~Fixed( void )
-{
-	std::cout << "Destructor called" << std::endl;
-}
-
-Fixed::Fixed( const Fixed &c )
-{
-	std::cout << "Copy constructor called" << std::endl;
-	this->_fixedPointValue = c.getRawBits();
-}
-
-
-Fixed &Fixed::operator=( const Fixed &rhs )
-{
-	std::cout << "Copy assignment operator called" << std::endl;
-	if (this != &rhs)
-		this->_fixedPointValue = rhs.getRawBits();
-	return (*this);
 }
 
 int Fixed::getRawBits( void ) const

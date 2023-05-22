@@ -6,7 +6,7 @@
 /*   By: ehasalu <ehasalu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 22:22:46 by ehasalu           #+#    #+#             */
-/*   Updated: 2023/05/22 15:48:31 by ehasalu          ###   ########.fr       */
+/*   Updated: 2023/05/22 17:42:37 by ehasalu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,27 @@
 
 int main( void )
 {
-	Fixed a;
 	Fixed const b( 10 );
 	Fixed const c( 42.42f );
-	Fixed const d( b );
+	Fixed const a( 42.42f );
 
-	a = Fixed( 1234.4321f );
-	std::cout << "a is " << a << std::endl;
-	std::cout << "b is " << b << std::endl;
-	std::cout << "c is " << c << std::endl;
-	std::cout << "d is " << d << std::endl;
-	std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-	std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-	std::cout << "c is " << c.toInt() << " as integer" << std::endl;
-	std::cout << "d is " << d.toInt() << " as integer" << std::endl;
+	if (b < c)
+		std::cout << "b is smaller than c" << std::endl;
+	if (c > b)
+		std::cout << "c is bigger than b" << std::endl;
+	if (c >= a)
+		std::cout << "c is bigger or equal to a" << std::endl;
+	if (b <= c)
+		std::cout << "b is smaller or equal to c" << std::endl;
+	if (c == a)
+		std::cout << "c is equal to a" << std::endl;
+	if (c != b)
+		std::cout << "c is not equal to b" << std::endl;
+	std::cout << (c + b) << std::endl;
+	std::cout << (b - c) << std::endl;
+	std::cout << (c * b) << std::endl;
+	std::cout << (c / b) << std::endl;
+
+
 return 0;
 }
