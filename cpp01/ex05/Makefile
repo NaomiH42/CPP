@@ -5,21 +5,21 @@
 #                                                     +:+ +:+         +:+      #
 #    By: ehasalu <ehasalu@student.42prague.com>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/05/21 14:29:55 by ehasalu           #+#    #+#              #
-#    Updated: 2023/05/21 14:29:56 by ehasalu          ###   ########.fr        #
+#    Created: 2023/05/21 14:29:59 by ehasalu           #+#    #+#              #
+#    Updated: 2023/05/21 14:43:26 by ehasalu          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = violence
+NAME = Harl2.0
 
-SRCS =	main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
+SRCS =	main.cpp Harl.cpp
 
-FLAGS = -std=c++98
-C++_FLAGS = g++ -Wall -Werror -Wextra ${FLAGS}
+OLD_FLAGS = -std=c++98
+C++_FLAGS = g++ -Wall -Werror -Wextra ${OLD_FLAGS}
 
 all:	${NAME}
 
-${NAME}:
+${NAME}: ${SRCS}
 	${C++_FLAGS} ${SRCS} -o ${NAME}
 
 clean:
