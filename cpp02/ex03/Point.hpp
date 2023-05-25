@@ -12,7 +12,7 @@ public:
 	Point( const float a, const float b);
 	~Point( void );
 	Point( const Point &c);
-	Point &operator=(Point &c);
+	Point &operator=( Point &c );
 
 	Fixed	getX( void ) const;
 	Fixed	getY( void ) const;

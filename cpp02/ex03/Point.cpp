@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Point.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehasalu <ehasalu@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: ehasalu <ehasalu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/24 12:26:00 by ehasalu           #+#    #+#             */
-/*   Updated: 2023/05/25 12:42:11 by ehasalu          ###   ########.fr       */
+/*   Updated: 2023/05/25 17:14:08 by ehasalu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ Point::Point( const float a, const float b) : _x(a), _y(b)
 
 Point::Point( const Point &c ) : _x(c.getX()), _y(c.getY())
 {
+}
+
+Point &Point::operator=( Point &rhs )
+{
+	if (this != &rhs)
+	{
+		this->_x = rhs.getX();
+		this->_y = rhs.getY();
+	}
+	return (*this);
 }
 
 Fixed	Point::getX( void ) const
