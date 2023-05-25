@@ -20,7 +20,11 @@ public:
 private:
 	const Fixed _x;
 	const Fixed _y;
+	int	_comp;
 
 };
 
 #endif
+
+bool bsp( Point const a, Point const b, Point const c, Point const point);
+Fixed	calcArea( Point const a, Point const b, Point const c);
