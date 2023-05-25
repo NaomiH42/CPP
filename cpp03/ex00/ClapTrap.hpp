@@ -7,10 +7,10 @@ class ClapTrap
 {
 
 public:
-	ClapTrap( void );
+	ClapTrap( std::string newName );
 	~ClapTrap( void );
-	ClapTrap( ClapTrap &c);
-	ClapTrap &operator=(ClapTrap &c);
+	ClapTrap( const ClapTrap &original);
+	ClapTrap &operator=( const ClapTrap &c );
 
 	void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
