@@ -23,7 +23,7 @@ ClapTrap::ClapTrap( const ClapTrap &original )
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &c)
 {
-	this->_name = "<" + c._name + " equal>";
+	this->_name = "<" + c._name + " equal";
 	this->_ad = c._ad;
 	this->_hp = c._hp;
 	this->_ep = c._ep;

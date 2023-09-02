@@ -7,7 +7,6 @@ class ClapTrap
 {
 
 public:
-
 	ClapTrap();
 	ClapTrap( std::string newName );
 	~ClapTrap( void );
@@ -19,7 +18,6 @@ public:
 	void beRepaired(unsigned int amount);
 
 private:
-
 	std::string _name;
 	int			_hp;
 	int			_ep;
