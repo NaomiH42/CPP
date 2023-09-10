@@ -2,17 +2,17 @@
 
 ScavTrap::ScavTrap() : ClapTrap()
 {
-	setHP(100);
-	setEP(50);
-	setAD(20);
+	setHP();
+	setEP();
+	setAD();
 }
 
 ScavTrap::ScavTrap( std::string newName ) : ClapTrap(newName)
 {
 	setName(newName);
-	setHP(100);
-	setEP(50);
-	setAD(20);
+	setHP();
+	setEP();
+	setAD();
 	std::cout << "ScavTrap " << newName << " has been born!" << std::endl;
 }
 
@@ -24,9 +24,9 @@ ScavTrap::~ScavTrap( void )
 ScavTrap::ScavTrap( const ScavTrap &original ) : ClapTrap(original)
 {
 	this->setName("<" + original.getName() + " copy>");
-	this->setAD(original.getAD());
-	this->setHP(original.getHP());
-	this->setEP(original.getEP());
+	this->ClapTrap::setAD(original.getAD());
+	this->ClapTrap::setHP(original.getHP());
+	this->ClapTrap::setEP(original.getEP());
 	std::cout << "Copy ScavTrap " << getName() << " has been born!" << std::endl;
 }
 
@@ -34,9 +34,9 @@ ScavTrap &ScavTrap::operator=( const ScavTrap &c )
 {
 	ClapTrap::operator=(c);
 	this->setName("<" + c.getName() + " equal>");
-	this->setAD(c.getAD());
-	this->setHP(c.getHP());
-	this->setEP(c.getEP());
+	this->ClapTrap::setAD(c.getAD());
+	this->ClapTrap::setHP(c.getHP());
+	this->ClapTrap::setEP(c.getEP());
 	std::cout << "Equal ScavTrap " << this->getName() << " has been born!" << std::endl;
 	return (*this);
 }
@@ -63,4 +63,19 @@ void	ScavTrap::report()
 void	ScavTrap::guardGate( void )
 {
 	std::cout << "ScavTrap " << getName() << " is now in guard mode." << std::endl;
+}
+
+void	ScavTrap::setHP( void )
+{
+	_hp = 100;
+}
+
+void	ScavTrap::setEP( void )
+{
+	_ep = 50;
+}
+
+void	ScavTrap::setAD( void )
+{
+	_ad = 20;
 }

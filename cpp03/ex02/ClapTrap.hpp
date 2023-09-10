@@ -13,7 +13,7 @@ public:
 	ClapTrap( const ClapTrap &original);
 	ClapTrap &operator=( const ClapTrap &c );
 
-	void virtual attack(const std::string& target);
+	void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 	int	getHP( void ) const;

@@ -13,7 +13,7 @@ public:
 	ClapTrap( const ClapTrap &original);
 	ClapTrap &operator=( const ClapTrap &c );
 
-	void virtual attack(const std::string& target);
+	void attack(const std::string& target);
 	void takeDamage(unsigned int amount);
 	void beRepaired(unsigned int amount);
 	int	getHP( void ) const;
@@ -26,9 +26,9 @@ protected:
 	int			_hp;
 	int			_ep;
 	int			_ad;
-	void	setHP(int newHP);
-	void	setEP(int newEP);
-	void	setAD(int newAD);
+	void	virtual setHP(int newHP);
+	void	virtual setEP(int newEP);
+	void	virtual setAD(int newAD);
 	void	setName(std::string newName);
 
 };
