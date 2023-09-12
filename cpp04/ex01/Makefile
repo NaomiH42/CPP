@@ -12,7 +12,7 @@
 
 NAME = polymorphism
 
-SRCS =	main.cpp Animal.cpp Dog.cpp Cat.cpp WrongCat.cpp WrongAnimal.cpp
+SRCS =	main.cpp Animal.cpp Dog.cpp Cat.cpp WrongCat.cpp WrongAnimal.cpp Brain.cpp
 
 OLD_FLAGS = -std=c++98
 C++_FLAGS = c++ -Wall -Werror -Wextra ${OLD_FLAGS}
