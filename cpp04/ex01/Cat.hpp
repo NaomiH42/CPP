@@ -14,7 +14,7 @@ public:
 	Cat( const Cat &c);
 	Cat &operator=(const Cat &c);
 	void makeSound( void ) const;
-
+	void compareCats( const Cat &other);
 
 private:
 	Brain *_brain;

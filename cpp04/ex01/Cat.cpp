@@ -9,24 +9,26 @@ Cat::Cat( void ) : Animal()
 
 Cat::~Cat( void )
 {
-	std::cout << "Cat :c" << std::endl;
 	delete _brain;
+	std::cout << "Cat :c" << std::endl;
 }
 
 Cat::Cat( const Cat &original ) : Animal(original)
 {
 	std::cout << "I'm a CopyCat" << std::endl;
-	this->_type = original.getType();
-	this->_brain = original._brain;
+	_type = original.getType();
+	_brain = new Brain(*original._brain);
 }
 
 Cat &Cat::operator=(const Cat &rhs)
 {
-	std::cout << "Cats equalized" << std::endl;
 	if (this != &rhs)
 	{
-		this->_brain = rhs._brain;
-		this->_type = rhs.getType();
+		if (_brain)
+			delete _brain;
+		std::cout << "Cats equalized" << std::endl;
+		_brain = new Brain (*rhs._brain);
+		_type = rhs.getType();
 	}
 	return (*this);
 }
@@ -34,4 +36,10 @@ Cat &Cat::operator=(const Cat &rhs)
 void Cat::makeSound( void ) const
 {
 	std::cout << "MEOW" << std::endl;
+}
+
+void Cat::compareCats( const Cat &other)
+{
+	std::cout << "This cat adress " << &(this->_brain) << std::endl;
+	std::cout << "Others cat adress " << &(other._brain) << std::endl;
 }

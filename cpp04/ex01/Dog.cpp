@@ -10,24 +10,26 @@ Dog::Dog( void ) : Animal()
 
 Dog::~Dog( void )
 {
-	std::cout << "DOG GONE" << std::endl;
 	delete _brain;
+	std::cout << "DOG GONE" << std::endl;
 }
 
 Dog::Dog( const Dog &original ) : Animal(original)
 {
 	std::cout << "DOG COPPED" << std::endl;
-	this->_type = original.getType();
-	this->_brain = original._brain;
+	_type = original.getType();
+	_brain = new Brain(*original._brain);
 }
 
 Dog &Dog::operator=(const Dog &rhs)
 {
-	std::cout << "DOG EQUEDED" << std::endl;
 	if (this != &rhs)
 	{
-		this->_brain = rhs._brain;
-		this->_type = rhs.getType();
+		if (_brain)
+			delete _brain;
+		std::cout << "DOG EQUEDED" << std::endl;
+		_brain = new Brain (*rhs._brain);
+		_type = rhs.getType();
 	}
 	return (*this);
 }

@@ -14,6 +14,7 @@ public:
 	Dog( const Dog &c);
 	Dog &operator=( const Dog &c);
 	void makeSound( void ) const;
+	void compareDogs( const Dog &other);
 
 private:
 	Brain *_brain;
