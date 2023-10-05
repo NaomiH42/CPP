@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   Fixed.cpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ehasalu <ehasalu@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: ehasalu <ehasalu@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/21 22:23:07 by ehasalu           #+#    #+#             */
-/*   Updated: 2023/05/22 09:51:59 by ehasalu          ###   ########.fr       */
+/*   Updated: 2023/09/07 15:49:27 by ehasalu          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 
-const int _fractBits = 8;
+// const int _fractBits = 8;
 
 Fixed::Fixed( void ) : _nbValue(0)
 {

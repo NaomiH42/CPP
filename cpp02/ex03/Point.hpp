@@ -20,7 +20,6 @@ public:
 private:
 	const Fixed _x;
 	const Fixed _y;
-	int	_comp;
 
 };
 
