@@ -19,6 +19,7 @@ class Span
 		void	addNumber(int);
 		int shortestSpan();
 		int longestSpan();
+		void	addRange()
 
 	private:
 		std::vector<int> _spans;

@@ -5,6 +5,11 @@
 #include <sstream>
 #include <iomanip>
 #include <limits.h>
+#include <string.h>
+#include <exception>
+#include <string>
+#include <limits>
+#include <cfloat>
 
 #define CHAR 1
 #define INT 2

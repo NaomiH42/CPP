@@ -30,7 +30,7 @@ ScalarConverter::toChar(std::string input)
 	else
 		std::cout << "char: " << c << std::endl;
 	std::cout << "int: " << static_cast<int>(c) << std::endl;
-	std::cout << "float: " << static_cast<float>(c) << std::endl;
+	std::cout << "float: " << static_cast<float>(c) << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(c) << std::endl;
 }
 
@@ -40,12 +40,25 @@ ScalarConverter::toInt(std::string input)
 	int i;
 	std::stringstream ss(input);
 	ss >> i;
+	std::stringstream test;
+	std::string t;
+	test << i;
+	test >> t;
+	std::cout << std::fixed << std::setprecision(1);
+	if (t != input)
+	{
+		std::cout << "error\n";
+		return;
+	}
 	if (i < 32 || i > 126)
 		std::cout << "char: unprintable" << std::endl;
 	else
 		std::cout << "char: " << static_cast<char>(i) << std::endl;
 	std::cout << "int: " << i << std::endl;
-	std::cout << "float: " << static_cast<float>(i) << std::endl;
+	if (i > 9999999 || i < -9999999)
+		std::cout <<"float: overflow or float weirdery" << std::endl;
+	else
+		std::cout << "float: " << static_cast<float>(i) << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(i) << std::endl;
 }
 
@@ -53,15 +66,27 @@ void
 ScalarConverter::toFloat(std::string input)
 {
 	float f;
+	std::string t;
 	std::stringstream ss(input);
 	ss >> f;
-	std::cout << std::fixed;
+	std::stringstream test;
+	test << std::fixed  << std::setprecision(1) << f;
+	test >> t;
+	if (t + 'f' != input)
+	{
+		std::cout << "error (float is weird :))\n";
+		return;
+	}
+	std::cout << std::setprecision(1) << std::fixed;
 	if (f < 32 || f > 126)
 		std::cout << "char: unprintable" << std::endl;
 	else
 		std::cout << "char: " << static_cast<char>(f) << std::endl;
-	std::cout << "int: " << static_cast<int>(f) << std::endl;
-	std::cout <<"float: " << std::setprecision(1) << f << "f" << std::endl;
+	if (f > INT_MAX || f < INT_MIN)
+		std::cout <<"int: overflow" << std::endl;
+	else
+		std::cout << "int: " << static_cast<int>(f) << std::endl;
+	std::cout <<"float: " << f << "f" << std::endl;
 	std::cout << "double: " << static_cast<double>(f) << std::endl;
 }
 
@@ -70,15 +95,30 @@ ScalarConverter::toDouble(std::string input)
 {
 
 	double d;
+	std::string t;
 	std::stringstream ss(input);
 	ss >> d;
-	std::cout << std::fixed;
+	std::stringstream test;
+	test << std::fixed  << std::setprecision(1) << d;
+	test >> t;
+	if (t != input)
+	{
+		std::cout << "error\n";
+		return;
+	}
+	std::cout << std::setprecision(1) <<  std::fixed;
 	if (d < 32 || d > 126)
 		std::cout << "char: unprintable" << std::endl;
 	else
 		std::cout << "char: " << static_cast<char>(d) << std::endl;
-	std::cout << "int: " << static_cast<int>(d) << std::endl;
-	std::cout <<"float: " << std::setprecision(1) << static_cast<float>(d) << "f" << std::endl;
+	if (d > INT_MAX || d < INT_MIN)
+		std::cout <<"int: overflow" << std::endl;
+	else
+		std::cout << "int: " << static_cast<int>(d) << std::endl;
+	if (d > 9999999 || d < -9999999)
+		std::cout <<"float: overflow or float weirdery" << std::endl;
+	else
+		std::cout <<"float: " << static_cast<float>(d) << "f" << std::endl;
 	std::cout << "double: " << d << std::endl;
 }
 
@@ -97,7 +137,7 @@ int
 ScalarConverter::doBsInf(std::string input)
 {
 	char s;
-	if (input.find("-"))
+	if (input.find("-") != std::string::npos)
 		s = '-';
 	else
 		s = '+';
@@ -111,9 +151,13 @@ ScalarConverter::doBsInf(std::string input)
 int
 ScalarConverter::bsCheck(std::string input)
 {
-	if (input.find("nan") != std::string::npos)
+	if ("nan" == input || input == "nanf"
+		|| "-nan" == input || input == "-nanf"
+		|| "+nan" == input || input == "+nanf")
 		return (doBsNan(input));
-	else if (input.find("inf") != std::string::npos)
+	else if (input == "inf" || input == "inff"
+			|| input == "-inf" || input == "-inff"
+			|| input == "+inf" || input == "+inff")
 		return (doBsInf(input));
 	return (0);
 }
