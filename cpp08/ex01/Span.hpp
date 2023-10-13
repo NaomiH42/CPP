@@ -19,7 +19,7 @@ class Span
 		void	addNumber(int);
 		int shortestSpan();
 		int longestSpan();
-		void	addRange()
+		void	addRange(int, int);
 
 	private:
 		std::vector<int> _spans;
@@ -31,6 +31,16 @@ class Span
 	};
 
 	class NotEnoughElementsException : public std::exception
+	{
+		virtual const char *what() const throw();
+	};
+
+	class IncorrectRangeException : public std::exception
+	{
+		virtual const char *what() const throw();
+	};
+
+	class RangeTooBigException : public std::exception
 	{
 		virtual const char *what() const throw();
 	};

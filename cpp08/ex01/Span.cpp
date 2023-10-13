@@ -8,7 +8,8 @@ Span::Span()
 
 Span::Span(unsigned int size)
 {
-	std::vector<int> _spans(size);
+	std::vector<int> _spans;
+	_spans.reserve(size);
 	_maxSize = size;
 }
 
@@ -19,6 +20,7 @@ Span::Span(const Span& o)
 {
 	_maxSize = o.GetSize();
 	std::vector<int> _spans;
+	_spans.reserve(_maxSize);
 	for (int i = 0; i < static_cast<int>(o._spans.size()); i++)
 		_spans.push_back(o.getInd(i));
 }
@@ -29,6 +31,7 @@ Span& Span::operator=(const Span& o)
 	{
 		_maxSize = o.GetSize();
 		std::vector<int> _spans;
+		_spans.reserve(_maxSize);
 		for (int i = 0; i < (static_cast<int>(o._spans.size())); i++)
 			_spans.push_back(o.getInd(i));
 	}
@@ -53,6 +56,16 @@ const char* Span::NotEnoughElementsException::what() const throw()
 	return ("Zero or one number in vector.");
 }
 
+const char* Span::IncorrectRangeException::what() const throw()
+{
+	return ("Incorrect range.");
+}
+
+const char* Span::RangeTooBigException::what() const throw()
+{
+	return ("Numbers don't fit.");
+}
+
 int Span::GetSize() const
 {
 	return _maxSize;
@@ -69,10 +82,11 @@ int Span::shortestSpan()
 	if (_spans.size() == 0 || _spans.size() == 1)
 		throw NotEnoughElementsException();
 	sort(_spans.begin(), _spans.end());
-	for (int i = 1; i < static_cast<int>(_spans.size()); i++)
+	for (std::vector<int>::iterator i = _spans.begin() + 1; i != _spans.end(); i++)
 	{
-		if (_spans[i] - _spans[i - 1] < min || i == 1)
-			min = abs(_spans[i] - _spans[i - 1]);
+		std::vector<int>::iterator i2 = i-1;
+		if (*i - *i2 < min || i == _spans.begin() +1)
+			min = abs(*i - *i2);
 	}
 	return (min);
 }
@@ -82,7 +96,19 @@ int Span::longestSpan()
 	int max = 0;
 	if (_spans.size() == 0 || _spans.size() == 1)
 		throw NotEnoughElementsException();
-	sort(_spans.begin(), _spans.end());
-	max = abs(_spans[0] - _spans[_spans.size() - 1]);
+	max = abs(*std::max_element(_spans.begin(), _spans.end()) - *std::min_element(_spans.begin(), _spans.end()));
 	return (max);
+}
+
+void	Span::addRange(int start, int end)
+{
+	if (start >= end)
+		throw IncorrectRangeException();
+	if ((GetSize() - static_cast<int>(_spans.size())) < (end - start))
+		throw RangeTooBigException();
+	std::vector<int> range;
+	range.reserve(end - start);
+	for (int i = start; i <= end; i++)
+		range.push_back(i);
+	_spans.insert( _spans.end(), range.begin(), range.end());
 }

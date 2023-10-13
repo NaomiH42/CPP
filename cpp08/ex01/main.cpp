@@ -79,6 +79,32 @@ int main(void)
 	{
 		std::cerr << e.what() << '\n';
 	}
+	std::cout << "\n\n";
+	Span c(50);
+	try
+	{
+		c.addRange(25,75);
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr << e.what() << '\n';
+	}
+	try
+	{
+		std::cout << c.shortestSpan() << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	try
+	{
+		std::cout << c.longestSpan() << std::endl;
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 }
 // int main(void)
 // {
