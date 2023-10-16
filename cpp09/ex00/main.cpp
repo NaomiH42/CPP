@@ -11,6 +11,6 @@ int main(int argc, char **argv)
 		std::cerr << "Error: could not open file.\n";
 		return (0);
 	}
-	BitcoinExchange ex(input);
+	BitcoinExchange ex;
 
 }
