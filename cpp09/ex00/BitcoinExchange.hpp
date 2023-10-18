@@ -8,6 +8,8 @@
 #include <sstream>
 #include <limits.h>
 #include <iomanip>
+#include <time.h>
+#include <string.h>
 
 class BitcoinExchange
 {
