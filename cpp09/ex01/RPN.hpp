@@ -18,9 +18,11 @@ class RPN
 		void	seperate(std::string);
 		bool	check();
 		int		calculate();
+		int 	doOper(int res, int num, std::string symbol);
 
 	private:
 		std::stack<std::string, std::list<std::string> > _stack;
+
 };
 
 #endif
