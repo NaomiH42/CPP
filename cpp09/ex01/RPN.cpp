@@ -1,52 +1,80 @@
 #include "RPN.hpp"
 
 RPN::RPN(std::string input)
-{seperate(input);};
-RPN::~RPN(){};
+{
+	if (check(input))
+	{
+		try
+		{
+			std::cout << seperate(input);
+		}
+		catch(const std::exception& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
+	}
+	else
+		std::cout << "Incorrect input\n";
+}
+RPN::~RPN(){}
 RPN::RPN(const RPN& o){(void)o;}
 RPN&RPN::operator=(const RPN& o){(void)o; return *this;}
 
-bool	RPN::check()
+bool	RPN::check(std::string input)
 {
-	int flag = 2;
-	int i = 0;
-	std::stack<std::string, std::list<std::string> > cpy = _stack;
-	while (!cpy.empty())
+	int check = 0;
+	std::stringstream ss(input);
+	std::string word;
+	while (ss >> word)
 	{
-		std::string next = cpy.top();
-		if (next.length() != 1)
+		if (word.length() != 1)
 			return (false);
-		if (flag)
+		if (word.find_first_not_of("0123456789+-*/") != std::string::npos)
 		{
-			if (next.find_first_not_of("0123456789") != std::string::npos)
-			{	std::cout << cpy.top() << flag;
-				return(false);
-			}
-			else
-				flag--;
+			std::cout << word << "\n";
+			return(false);
 		}
-		else if (!flag)
-		{
-			if (next.find_first_not_of("+-*/") != std::string::npos)
-				return(false);
-			else
-				flag++;
-		}
-		std::cout << flag << "\n";
-		i++;
-		cpy.pop();
+		if (word.find_first_not_of("0123456789") == std::string::npos)
+			check++;
+		else if (word.find_first_not_of("+-*/") == std::string::npos)
+			check--;
 	}
-	if (flag != 1 || i < 3)
+	if (check != 1)
 		return (false);
 	return (true);
 }
 
-void	RPN::seperate(std::string input)
+int	RPN::seperate(std::string input)
 {
+	int first;
+	int second;
 	std::stringstream ss(input);
 	std::string word;
 	while (ss >> word)
-		_stack.push(word);
+	{
+		if (word.find_first_not_of("0123456789-+*/") != std::string::npos)
+			std::cout << "incorrect val\n";
+		else if (word.find_first_not_of("*+-/") == std::string::npos)
+		{
+			if (_stack.size() < 2)
+				throw BadOrderException();
+			first = strToInt(_stack.top());
+			_stack.pop();
+			second = strToInt(_stack.top());
+			_stack.pop();
+			first = doOper(second, first, word);
+			_stack.push(intToStr(first));
+		}
+		else if (word.find_first_not_of("0123456789") == std::string::npos)
+			_stack.push(word);
+	}
+	return (strToInt(_stack.top()));
+
+}
+
+const char *RPN::BadOrderException::what() const throw()
+{
+	return ("Bad order of... things.\n");
 }
 
 int	RPN::doOper(int res, int num, std::string symbol)
@@ -62,21 +90,17 @@ int	RPN::doOper(int res, int num, std::string symbol)
 	return (res);
 }
 
-
-int	RPN::calculate()
+std::string intToStr(int i)
 {
-	int res;
-	int num;
-	std::stringstream ss(_stack.top());
-	ss >> res;
-	_stack.pop();
-	while(!_stack.empty())
-	{
-		std::stringstream ss(_stack.top());
-		ss >> num;
-		_stack.pop();
-		res = doOper(res, num, _stack.top());
-		_stack.pop();
-	}
-	return (res);
+	std::ostringstream stri;
+	stri << i;
+	return(stri.str());
+}
+
+int strToInt(std::string str)
+{
+	int result;
+	std::stringstream ss(str);
+	ss >> result;
+	return (result);
 }

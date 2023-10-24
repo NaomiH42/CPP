@@ -64,8 +64,14 @@ void BitcoinExchange::convert(std::ifstream& input)
 			if (date <= i->first)
 			{
 				if (date < i->first)
+				{
+					if (i == _dat.begin())
+					{
+						std::cout << "Error: date before database => " << date << "\n";
+						break;
+					}
 					i--;
-				std::cout << date << " => " << val << " = " << val * i->second << std::endl;
+				}std::cout << date << " => " << val << " = " << val * i->second << std::endl;
 				break;
 			}
 		}
