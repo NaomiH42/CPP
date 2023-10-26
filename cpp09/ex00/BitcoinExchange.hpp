@@ -15,7 +15,6 @@ class BitcoinExchange
 {
 	public:
 		BitcoinExchange();
-		// BitcoinExchange();//std::ifstream&);
 		~BitcoinExchange();
 		BitcoinExchange(const BitcoinExchange& o);
 		BitcoinExchange&operator=(const BitcoinExchange& o);
@@ -23,6 +22,8 @@ class BitcoinExchange
 
 	private:
 		std::map<std::string, float> _dat;
+		bool checkDate(struct tm timeDate);
+		bool checkNum(std::string value);
 
 };
 

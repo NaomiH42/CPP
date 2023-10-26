@@ -1,5 +1,5 @@
 #ifndef PMERGEME_HPP
-# define PRMERGEME_HPP
+# define PMERGEME_HPP
 
 #include <iostream>
 #include <bits/stdc++.h>
@@ -25,12 +25,12 @@ class PmergeMe
 		void	putIn(char**);
 		void	sortPairs();
 		void	sortPairsLst();
-		void	sortFakeRecursive();
+		void	sortFakeRecursive(int i);
 		void	sortB();
 		bool	isSorted();
 		void	putInLst(char **input);
 		int		findPos(int);
-		void	sortRecurLst();
+		void	sortRecurLst(int i);
 		std::list<int>::iterator	findPosLst(int num);
 		void	putInA();
 

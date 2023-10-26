@@ -16,9 +16,20 @@ RPN::RPN(std::string input)
 	else
 		std::cout << "Incorrect input\n";
 }
-RPN::~RPN(){}
-RPN::RPN(const RPN& o){(void)o;}
-RPN&RPN::operator=(const RPN& o){(void)o; return *this;}
+RPN::~RPN()
+{}
+
+RPN::RPN(const RPN& o)
+{
+	this->_stack = o._stack;
+}
+
+RPN&RPN::operator=(const RPN& o)
+{
+	if (this != &o)
+		this->_stack = o._stack;
+	return *this;
+}
 
 bool	RPN::check(std::string input)
 {

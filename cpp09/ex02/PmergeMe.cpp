@@ -6,24 +6,26 @@ PmergeMe::PmergeMe(char** input)
 	gettimeofday(&timeb, NULL);
 	putIn(input);
 	sortPairs();
-	sortFakeRecursive();
+	sortFakeRecursive(0);
 	sortB();
 	gettimeofday(&timea, NULL);
-	// std::cout << "Before: ";
-	// for (int i = 1; input[i]; i++)
-	// 	std::cout << input[i] << " ";
-	// std::cout << "\nAfter: ";
-	// for (std::vector<std::pair<int, int> >::iterator it = _set.begin(); it != _set.end(); it++)
-	// 	std::cout << it->first << " ";
-	// std::cout << "\nTime to process a range of " << _set.size() << " elements with std::vector<pair> :";
-	// std::cout << timea.tv_usec - timeb.tv_usec << "\n";
-	// gettimeofday(&timeb, NULL);
+	std::cout << "Before: ";
+	for (int i = 1; input[i]; i++)
+		std::cout << input[i] << " ";
+	std::cout << "\nAfter: ";
+	for (std::vector<std::pair<int, int> >::iterator it = _set.begin(); it != _set.end(); it++)
+		std::cout << it->first << " ";
+	std::cout << "\nTime to process a range of " << _set.size() << " elements with std::vector<pair>: ";
+	std::cout << timea.tv_usec - timeb.tv_usec << "\n";
+	gettimeofday(&timeb, NULL);
+	gettimeofday(&timeb, NULL);
 	putInLst(input);
 	sortPairsLst();
-	sortRecurLst();
+	sortRecurLst(0);
 	putInA();
-	for (std::list<int>::iterator it = _listA.begin(); it != _listA.end(); it++)
-		std::cout << *it << "\n";
+	gettimeofday(&timea, NULL);
+	std::cout << "Time to process a range of " << _set.size() << " elements with std::list: ";
+	std::cout << timea.tv_usec - timeb.tv_usec << "\n";
 }
 
 std::vector<std::pair<int, int> > PmergeMe::get()
@@ -35,43 +37,71 @@ PmergeMe::~PmergeMe(){}
 
 PmergeMe::PmergeMe(const PmergeMe& o)
 {
-	(void)o;
+	this->_set = o._set;
+	this->_listA = o._listA;
+	this->_listB = o._listB;
 }
 
 PmergeMe&PmergeMe::operator=(const PmergeMe& o)
 {
-	(void)o;
+	if (this != &o)
+	{
+		this->_set = o._set;
+		this->_listA = o._listA;
+		this->_listB = o._listB;
+	}
 	return *this;
 }
 
-void PmergeMe::	sortRecurLst()
+void PmergeMe::sortFakeRecursive(int i)
+{
+	std::vector<std::pair<int, int> >::iterator it = _set.begin();
+	for (int l = 0; l < i && it != _set.end(); l++)
+		it++;
+	if (it == _set.end())
+		return ;
+	std::vector<std::pair<int, int> >::iterator itA = it;
+	itA++;
+	if (itA != _set.end() && it->first < itA->first)
+	{
+		int temp = it->first;
+		int tempB = it->second;
+		it->first = itA->first;
+		it->second = itA->second;
+		itA->first = temp;
+		itA->second = tempB;
+		sortFakeRecursive(0);
+	}
+	else if (it != _set.end())
+		sortFakeRecursive(i + 1);
+}
+
+void PmergeMe::	sortRecurLst(int i)
 {
 	std::list<int>::iterator itA = _listA.begin();
 	std::list<int>::iterator itB = _listB.begin();
-	while (itA != _listA.end())
+	for (int l = 0; l < i; l++)
 	{
-
-		std::list<int>::iterator itA2 = itA;
-		std::list<int>::iterator itB2 = itB;
-		itB2++;
-		itA2++;
-		if (*itA < *itA2 && itA2 != _listA.end())
-		{
-			int temp = *itA2;
-			int tempB = *itB2;
-			*itA2 = *itA;
-			*itB2 = *itB;
-			*itA = temp;
-			*itB = tempB;
-			itA = _listA.begin();
-			itB = _listB.begin();
-
-		}
-		else
-		{
-			itA++;
-			itB++;
-		}
+		itA++;
+		itB++;
+	}
+	std::list<int>::iterator itA2 = itA;
+	std::list<int>::iterator itB2 = itB;
+	itB2++;
+	itA2++;
+	if (*itA < *itA2 && itA2 != _listA.end())
+	{
+		int temp = *itA2;
+		int tempB = *itB2;
+		*itA2 = *itA;
+		*itB2 = *itB;
+		*itA = temp;
+		*itB = tempB;
+		sortRecurLst(0);
+	}
+	else if (itA2 != _listA.end())
+	{
+		sortRecurLst(i + 1);
 	}
 }
 
@@ -101,7 +131,8 @@ void PmergeMe::putInA()
 	{
 		_listA.insert(findPosLst(*it), *it);
 	}
-	_listA.pop_back();
+	if (_size % 2 == 0)
+		_listA.pop_back();
 }
 
 int	PmergeMe::findPos(int num)
@@ -118,8 +149,8 @@ int	PmergeMe::findPos(int num)
 
 void PmergeMe::sortB()
 {
-	int i;
-	int num;
+	int i = 0;
+	int num = 0;
 
 	for (std::vector<std::pair<int, int> >::iterator it = _set.begin(); it != _set.end(); it++)
 	{
@@ -137,11 +168,6 @@ void PmergeMe::sortB()
 	else if (_size % 2 == 0)
 		_set.pop_back();
 
-}
-
-void PmergeMe::sortFakeRecursive()
-{
-	std::sort(_set.begin(), _set.end(), std::greater<std::pair<int, int> >());
 }
 
 void PmergeMe::sortPairs()

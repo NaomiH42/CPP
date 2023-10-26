@@ -12,5 +12,7 @@ int main(int argc, char **argv)
 		return (0);
 	}
 	BitcoinExchange ex;
-	ex.convert(input);
+	BitcoinExchange ex2 = ex;
+	ex2.convert(input);
+
 }
