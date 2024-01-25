@@ -38,6 +38,7 @@ class PmergeMe
 		bool	isSorted();
 		void	putInLst(char **input);
 		int		findPos(int);
+		void 	printLst();
 		Lists	sortRecurLst(Lists lsts);
 		std::list<int>::iterator	findPosLst(int num);
 		void	putInA();

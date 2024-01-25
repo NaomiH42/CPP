@@ -4,41 +4,46 @@ PmergeMe::PmergeMe(char** input)
 {
 	struct timeval timeb, timea;
 	gettimeofday(&timeb, NULL);
-	// putIn(input);
-	// sortPairs();
-	// _set = sortFakeRecursive(_set);
-	// sortB();
-	// gettimeofday(&timea, NULL);
+	putIn(input);
+	sortPairs();
+	_set = sortFakeRecursive(_set);
+	sortB();
+	gettimeofday(&timea, NULL);
 	std::cout << "Before: ";
 	for (int i = 1; input[i]; i++)
 		std::cout << input[i] << " ";
 	std::cout << "\nAfter: ";
-	// for (std::vector<std::pair<int, int> >::iterator it = _set.begin(); it != _set.end(); it++)
-	// 	std::cout << it->first << " ";
-	// std::cout << "\nTime to process a range of " << _set.size() << " elements with std::vector<pair>: ";
-	// std::cout << timea.tv_usec - timeb.tv_usec << "\n";
-	gettimeofday(&timeb, NULL);
+	for (std::vector<std::pair<int, int> >::iterator it = _set.begin(); it != _set.end(); it++)
+		std::cout << it->first << " ";
+	std::cout << "\nTime to process a range of " << _set.size() << " elements with std::vector<pair>: ";
+	std::cout << timea.tv_usec - timeb.tv_usec << "\n";
 	putInLst(input);
+	gettimeofday(&timeb, NULL);
 	sortPairsLst();
-	
 	Lists lsts;
 	lsts.list1 = _listA;
 	lsts.list2 = _listB;
 	lsts = sortRecurLst(lsts);
 	_listA = lsts.list1;
 	_listB = lsts.list2;
-	
-	int i = _listA.size();
-	for (int l = 0; l < i; l++) {
-		std::cout << _listA.front() << " ";
-		_listA.pop_front();
-	}
-	// putInA();
-	
-	std::cout << std::endl;
+	putInA();
 	gettimeofday(&timea, NULL);
 	std::cout << "Time to process a range of " << _set.size() << " elements with std::list: ";
 	std::cout << timea.tv_usec - timeb.tv_usec << "\n";
+}
+
+void PmergeMe::printLst()
+{
+	for (std::list<int>::iterator it = _listA.begin(); it != _listA.end(); it++)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+	for (std::list<int>::iterator it = _listB.begin(); it != _listB.end(); it++)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
 }
 
 std::vector<std::pair<int, int> > PmergeMe::get()
@@ -118,66 +123,65 @@ std::vector<std::pair<int, int> >	PmergeMe::sortFakeRecursive(std::vector<std::p
 }
 
 Lists PmergeMe::mergeLists(Lists lsts1, Lists lsts2) {
-	Lists lst;
-	std::list<int>::iterator it;
-	while (!lsts1.list1.empty()) {
-		for (it = lst.list1.begin(); it != lst.list1.end(); it++) {
-			if (*it <= lsts1.list1.front()) {
-				break;
-			}
-		}
-		lst.list1.insert(it, lsts1.list1.front());
-		lsts1.list1.pop_front();
-		lst.list2.insert(it, lsts1.list2.front());
-		lsts1.list2.pop_front();
-	}
-	while (!lsts2.list1.empty()) {
-		for (it = lst.list1.begin(); it != lst.list1.end(); it++) {
-			if (*it <= lsts2.list1.front()) {
-				break;
-			}
-		}
-		lst.list1.insert(it, lsts2.list1.front());
-		lsts2.list1.pop_front();
-		lst.list2.insert(it, lsts2.list2.front());
-		lsts2.list2.pop_front();
-	}
-	return lst;
+    Lists lst;
+    while (!lsts1.list1.empty() && !lsts2.list1.empty()) {
+        if (lsts1.list1.front() >= lsts2.list1.front()) {
+            lst.list1.push_back(lsts1.list1.front());
+            lst.list2.push_back(lsts1.list2.front());
+            lsts1.list1.pop_front();
+            lsts1.list2.pop_front();
+        } else {
+            lst.list1.push_back(lsts2.list1.front());
+            lst.list2.push_back(lsts2.list2.front());
+            lsts2.list1.pop_front();
+            lsts2.list2.pop_front();
+        }
+    }
+    while (!lsts1.list1.empty()) {
+        lst.list1.push_back(lsts1.list1.front());
+        lst.list2.push_back(lsts1.list2.front());
+        lsts1.list1.pop_front();
+        lsts1.list2.pop_front();
+    }
+    while (!lsts2.list1.empty()) {
+        lst.list1.push_back(lsts2.list1.front());
+        lst.list2.push_back(lsts2.list2.front());
+        lsts2.list1.pop_front();
+        lsts2.list2.pop_front();
+    }
+    return lst;
 }
 
 Lists PmergeMe::sortRecurLst(Lists lsts)
 {
-	if (lsts.list1.size() == 1) return lsts;
-	if (lsts.list1.size() == 2) {
-		if (lsts.list1.front() < lsts.list1.back()) {
-			int temp = lsts.list1.front();
-			int temp2 = lsts.list2.front();
-			lsts.list1.front() = lsts.list1.back();
-			lsts.list1.back() = temp;
-			lsts.list2.front() = lsts.list2.back();
-			lsts.list2.back() = temp2;
-		}
-		return lsts;
-	}
-	Lists lst1;
-	Lists lst2;
-	unsigned long l = lsts.list1.size();
-	for (unsigned long i = 0; i < l; i++) {
-		if (i % 2 == 0) {
-			lst1.list1.push_back(lsts.list1.front());
-			lst1.list2.push_back(lsts.list2.front());
-		}
-		else {
-			lst2.list1.push_back(lsts.list1.front());
-			lst2.list2.push_back(lsts.list2.front());
-		}
-		lsts.list2.pop_front();
-		lsts.list1.pop_front();
-	}
-	lst1 = sortRecurLst(lst1);
-	lst2 = sortRecurLst(lst2);
-	lsts = mergeLists(lst1, lst2);
-	return lsts;
+    if (lsts.list1.size() <= 1) return lsts;
+    if (lsts.list1.size() == 2) {
+        if (lsts.list1.front() < lsts.list1.back()) {
+            std::swap(lsts.list1.front(), lsts.list1.back());
+            std::swap(lsts.list2.front(), lsts.list2.back());
+        }
+        return lsts;
+    }
+    Lists lst1;
+    Lists lst2;
+    unsigned long mid = lsts.list1.size() / 2;
+    unsigned long i = 0;
+    while (!lsts.list1.empty()) {
+        if (i < mid) {
+            lst1.list1.push_back(lsts.list1.front());
+            lst1.list2.push_back(lsts.list2.front());
+        } else {
+            lst2.list1.push_back(lsts.list1.front());
+            lst2.list2.push_back(lsts.list2.front());
+        }
+        lsts.list1.pop_front();
+        lsts.list2.pop_front();
+        i++;
+    }
+    lst1 = sortRecurLst(lst1);
+    lst2 = sortRecurLst(lst2);
+    lsts = mergeLists(lst1, lst2);
+    return lsts;
 }
 
 bool PmergeMe::isSorted()
@@ -278,7 +282,6 @@ void PmergeMe::putIn(char **input)
 	}
 	_size = i;
 }
-
 
 void PmergeMe::sortPairsLst()
 {
