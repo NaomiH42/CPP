@@ -1,6 +1,6 @@
 NAME = interface
 
-SRCS =	main.cpp AMateria.cpp Character.cpp Cure.cpp Cure.cpp MateriaSource.cpp
+SRCS =	main.cpp AMateria.cpp Character.cpp Cure.cpp Ice.cpp MateriaSource.cpp
 
 OLD_FLAGS = -std=c++98
 C++_FLAGS = c++ -Wall -Werror -Wextra ${OLD_FLAGS}

@@ -4,12 +4,18 @@ Character::~Character() {
     for (int i = 0; i < 4; i++) {
         if (inventory[i] != NULL) delete inventory[i];
     }
+    for (int i = 0; i < 100; i++) {
+        if (floor[i] != NULL) delete floor[i];
+    }
 }
 
 Character::Character(std::string newName) {
     name = newName;
     for (int i = 0; i < 4; i++) {
         inventory[i] = NULL;
+    }
+    for (int i = 0; i < 100; i++) {
+        floor[i] = NULL;
     }
 }
 
@@ -46,6 +52,12 @@ void Character::equip(AMateria* m) {
 
 void Character::unequip(int idx) {
     if (idx < 0 || idx > 3) return;
+    for (int i = 0; i < 100; i++) {
+        if (floor[i] == NULL) {
+            floor[i] = inventory[idx];
+            break;
+        }
+    }
     inventory[idx] = NULL;
 }
 

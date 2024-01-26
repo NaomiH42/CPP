@@ -6,7 +6,7 @@ Cure::Cure() : AMateria("cure") {
 
 Cure::~Cure(){}
 
-Cure::Cure(const Cure &original) :AMateria(original) {
+Cure::Cure(const Cure &original) : AMateria(original) {
     type = original.getType();
 }
 
