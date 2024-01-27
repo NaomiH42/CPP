@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CHARACTER_HPP
+# define CHARACTER_HPP
 
 #include "ICharacter.hpp"
 #include <iostream>
@@ -21,3 +22,5 @@ class Character : public ICharacter
         void use(int idx, ICharacter& target);
         AMateria *getInv(int idx) const;
 };
+
+#endif

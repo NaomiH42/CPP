@@ -1,4 +1,5 @@
-#pragma once
+#ifndef ICHARACTER_HPP
+# define ICHARACTER_HPP
 
 #include <iostream>
 #include "ICharacter.hpp"
@@ -20,3 +21,5 @@ class AMateria
     virtual AMateria* clone() const = 0;
     virtual void use(ICharacter& target);
 };
+
+#endif

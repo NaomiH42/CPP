@@ -22,7 +22,12 @@ Character::Character(std::string newName) {
 Character::Character(const Character& original) {
     name = original.getName();
     for (int i = 0; i < 4; i++) {
-        this->inventory[i] = original.getInv(i);
+        if (inventory[i] != NULL) delete inventory[i];
+    }
+    for (int i = 0; i < 4; i++) {
+        if (original.getInv(i) != NULL)
+            this->inventory[i] = original.getInv(i)->clone();
+        else this->inventory[i] = NULL;
     }
 }
 
@@ -32,7 +37,9 @@ Character& Character::operator=(const Character& rhs) {
         if (inventory[i] != NULL) delete inventory[i];
     }
     for (int i = 0; i < 4; i++) {
-        this->inventory[i] = rhs.getInv(i);
+        if (rhs.getInv(i) != NULL)
+            this->inventory[i] = rhs.getInv(i)->clone();
+        else this->inventory[i] = NULL;
     }
     return *this;
 }

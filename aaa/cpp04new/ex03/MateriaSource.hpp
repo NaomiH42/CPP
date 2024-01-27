@@ -1,4 +1,5 @@
-#pragma once
+#ifndef MATERIASOURCE_HPP
+# define MATERIASOURCE_HPP
 
 #include <iostream>
 #include "IMateriaSource.hpp"
@@ -16,3 +17,5 @@ class MateriaSource : public IMateriaSource
         AMateria* createMateria(std::string const & type);
         AMateria *getMateria(int idx) const;
 };
+
+#endif
