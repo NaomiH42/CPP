@@ -1,6 +1,7 @@
 #include "Character.hpp"
 
 Character::~Character() {
+    std::cout << "Deleted character " << name << std::endl;
     for (int i = 0; i < 4; i++) {
         if (inventory[i] != NULL) delete inventory[i];
     }
@@ -10,6 +11,7 @@ Character::~Character() {
 }
 
 Character::Character(std::string newName) {
+    std::cout << "Created new character " << newName << std::endl;
     name = newName;
     for (int i = 0; i < 4; i++) {
         inventory[i] = NULL;
@@ -20,9 +22,10 @@ Character::Character(std::string newName) {
 }
 
 Character::Character(const Character& original) {
+    std::cout << "Copied new character " << original.getName() << std::endl;
     name = original.getName();
-    for (int i = 0; i < 4; i++) {
-        if (inventory[i] != NULL) delete inventory[i];
+    for (int i = 0; i < 100; i++) {
+        floor[i] = NULL;
     }
     for (int i = 0; i < 4; i++) {
         if (original.getInv(i) != NULL)
@@ -32,9 +35,14 @@ Character::Character(const Character& original) {
 }
 
 Character& Character::operator=(const Character& rhs) {
+    std::cout << "Equaled new character " << rhs.getName() << std::endl;
     name = rhs.getName();
     for (int i = 0; i < 4; i++) {
         if (inventory[i] != NULL) delete inventory[i];
+    }
+    for (int i = 0; i < 100; i++) {
+        if (floor[i] != NULL) delete floor[i];
+        floor[i] = NULL;
     }
     for (int i = 0; i < 4; i++) {
         if (rhs.getInv(i) != NULL)
@@ -49,6 +57,8 @@ std::string const & Character::getName() const {
 }
 
 void Character::equip(AMateria* m) {
+    if (m == NULL) return;
+    std::cout << "Equiped materia " << m->getType() << std::endl;
     for (int i = 0; i < 4; i++) {
         if (inventory[i] == NULL) {
             inventory[i] = m;
@@ -58,10 +68,16 @@ void Character::equip(AMateria* m) {
 }
 
 void Character::unequip(int idx) {
-    if (idx < 0 || idx > 3) return;
+    if (idx < 0 || idx > 3) {
+        std::cout << "invalid index" << std::endl;
+        return;
+    }
+    AMateria *tmp = inventory[idx];
+    if (tmp == NULL) return;
+    std::cout << "Unequiped materia " << tmp->getType() << " and threw it on the ground" << std::endl;
     for (int i = 0; i < 100; i++) {
         if (floor[i] == NULL) {
-            floor[i] = inventory[idx];
+            floor[i] = tmp;
             break;
         }
     }
@@ -69,11 +85,14 @@ void Character::unequip(int idx) {
 }
 
 void Character::use(int idx, ICharacter& target) {
-    if (idx < 0 || idx > 3) return;
+    if (idx < 0 || idx > 3 || inventory[idx] == NULL) return;
     inventory[idx]->use(target);
 }
 
 AMateria *Character::getInv(int idx) const {
-    if (idx < 0 || idx > 3) return NULL;
+    if (idx < 0 || idx > 3) {
+        std::cout << "invalid index" << std::endl;
+        return NULL;
+    }
     return inventory[idx];
 }

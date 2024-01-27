@@ -1,10 +1,12 @@
 #include "Cure.hpp"
  
 Cure::Cure() : AMateria("cure") {
-
+    std::cout << "Created new cure materia" << std::endl;
 }
 
-Cure::~Cure(){}
+Cure::~Cure(){
+    std::cout << "Deleted cure" << std::endl;
+}
 
 Cure::Cure(const Cure &original) : AMateria(original) {
     type = original.getType();
@@ -16,6 +18,7 @@ Cure &Cure::operator=(const Cure &rhs) {
 }
 
 Cure* Cure::clone() const {
+    std::cout << "Cloned cure" << std::endl;
     return new Cure();
 }
 

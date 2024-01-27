@@ -1,10 +1,13 @@
 #include "Ice.hpp"
  
 Ice::Ice() : AMateria("ice") {
+    std::cout << "Created new ice materia" << std::endl;
 
 }
 
-Ice::~Ice(){}
+Ice::~Ice(){
+    std::cout << "Deleted ice" << std::endl;
+}
 
 Ice::Ice(const Ice &original) :AMateria(original) {
     type = original.getType();
@@ -16,6 +19,7 @@ Ice &Ice::operator=(const Ice &rhs) {
 }
 
 Ice* Ice::clone() const {
+    std::cout << "Cloned ice" << std::endl;
     return new Ice();
 }
 
