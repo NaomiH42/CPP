@@ -1,5 +1,5 @@
 #ifndef WRONGCAT_HPP
-# define WRONGAT_HPP
+# define WRONGCAT_HPP
 
 # include <iostream>
 # include "WrongAnimal.hpp"

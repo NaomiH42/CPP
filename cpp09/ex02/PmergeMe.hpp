@@ -9,6 +9,11 @@
 #include <utility>
 #include <sys/time.h>
 
+typedef struct Lists_s{
+	std::list<int> list1;
+	std::list<int> list2;
+}	Lists;
+
 class PmergeMe
 {
 	public:
@@ -25,12 +30,16 @@ class PmergeMe
 		void	putIn(char**);
 		void	sortPairs();
 		void	sortPairsLst();
-		void	sortFakeRecursive(int i);
+		int		findPosMerge(std::vector<std::pair<int, int> > vec, int num);
+		Lists mergeLists(Lists lsts1, Lists lsts2);
+		std::vector<std::pair<int, int> >	sortFakeRecursive(std::vector<std::pair<int, int> > vec);
+		std::vector<std::pair<int, int> >	mergeVectors(std::vector<std::pair<int, int> > vec1, std::vector<std::pair<int, int> > vec2);
 		void	sortB();
 		bool	isSorted();
 		void	putInLst(char **input);
 		int		findPos(int);
-		void	sortRecurLst(int i);
+		void 	printLst();
+		Lists	sortRecurLst(Lists lsts);
 		std::list<int>::iterator	findPosLst(int num);
 		void	putInA();
 

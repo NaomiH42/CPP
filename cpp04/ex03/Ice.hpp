@@ -1,18 +1,19 @@
 #ifndef ICE_HPP
 # define ICE_HPP
 
-#include "AMateria.hpp"
 #include <iostream>
+#include "AMateria.hpp"
 
 class Ice : public AMateria
 {
-    protected:
-
     public:
-        Ice(std::string const &type);
+        Ice();
         ~Ice();
         Ice(const Ice &original);
-        Ice&operator=(const Ice &rhs);
-        std::string const & getType() const;
+        Ice &operator=(const Ice &rhs);
+
         Ice* clone() const;
-}
+        void use(ICharacter& target);
+};
+
+#endif

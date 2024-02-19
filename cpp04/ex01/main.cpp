@@ -9,6 +9,7 @@ int main()
 
 	delete j;//should not create a leak
 	delete i;
+
 	Cat *k = new Cat();
 	Cat *l = new Cat(*k);
 	l->compareCats(*k);
